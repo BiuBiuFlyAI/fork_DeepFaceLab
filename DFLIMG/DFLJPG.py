@@ -149,6 +149,12 @@ class DFLJPG(object):
                     if type(chunk['data']) == bytes:
                         inst.dfl_dict = pickle.loads(chunk['data'])
 
+            # list -> numpy.ndarray
+            dfl_ndarray_keys = inst.dfl_dict.get("dfl_ndarray_keys", {})
+            for dfl_ndarray_key, dtype in dfl_ndarray_keys.items():
+                ndarray_data = inst.dfl_dict[dfl_ndarray_key]
+                inst.dfl_dict[dfl_ndarray_key] = np.array(ndarray_data, dtype=dtype)
+
             return inst
         except Exception as e:
             io.log_err(f'Exception occured while DFLJPG.load : {traceback.format_exc()}')
@@ -173,6 +179,13 @@ class DFLJPG(object):
         for key in list(dict_data.keys()):
             if dict_data[key] is None:
                 dict_data.pop(key)
+
+        # numpy.ndarray -> list
+        dict_data["dfl_ndarray_keys"] = {}
+        for key in list(dict_data.keys()):
+            if isinstance(dict_data[key], np.ndarray):
+                dict_data["dfl_ndarray_keys"][key] = dict_data[key].dtype
+                dict_data[key] = dict_data[key].tolist()
 
         for chunk in self.chunks:
             if chunk['name'] == 'APP15':
