@@ -847,64 +847,24 @@ class SAEHDModel(ModelBase):
 
         target_srcm, target_dstm = [nn.to_data_format(x, "NHWC", self.model_data_format) for x in ([target_srcm, target_dstm])]
 
-        n_samples = min(4, self.get_batch_size(), 800 // self.resolution)
+        n_samples = min(4, self.get_batch_size())
 
-        if self.resolution <= 256:
-            result = []
+        result = []
 
-            st = []
-            for i in range(n_samples):
-                ar = S[i], SS[i], D[i], DD[i], SD[i]
-                st.append(np.concatenate(ar, axis=1))
-            result += [('SAEHD', np.concatenate(st, axis=0)), ]
+        st = []
+        for i in range(n_samples):
+            ar = S[i], SS[i], D[i], DD[i], SD[i]
+            st.append(np.concatenate(ar, axis=1))
+        result += [('SAEHD', np.concatenate(st, axis=0)), ]
 
-            st_m = []
-            for i in range(n_samples):
-                SD_mask = DDM[i] * SDM[i] if self.face_type < FaceType.HEAD else SDM[i]
+        st_m = []
+        for i in range(n_samples):
+            SD_mask = DDM[i] * SDM[i] if self.face_type < FaceType.HEAD else SDM[i]
 
-                ar = S[i] * target_srcm[i], SS[i], D[i] * target_dstm[i], DD[i] * DDM[i], SD[i] * SD_mask
-                st_m.append(np.concatenate(ar, axis=1))
+            ar = S[i] * target_srcm[i], SS[i], D[i] * target_dstm[i], DD[i] * DDM[i], SD[i] * SD_mask
+            st_m.append(np.concatenate(ar, axis=1))
 
-            result += [('SAEHD masked', np.concatenate(st_m, axis=0)), ]
-        else:
-            result = []
-
-            st = []
-            for i in range(n_samples):
-                ar = S[i], SS[i]
-                st.append(np.concatenate(ar, axis=1))
-            result += [('SAEHD src-src', np.concatenate(st, axis=0)), ]
-
-            st = []
-            for i in range(n_samples):
-                ar = D[i], DD[i]
-                st.append(np.concatenate(ar, axis=1))
-            result += [('SAEHD dst-dst', np.concatenate(st, axis=0)), ]
-
-            st = []
-            for i in range(n_samples):
-                ar = D[i], SD[i]
-                st.append(np.concatenate(ar, axis=1))
-            result += [('SAEHD pred', np.concatenate(st, axis=0)), ]
-
-            st_m = []
-            for i in range(n_samples):
-                ar = S[i] * target_srcm[i], SS[i]
-                st_m.append(np.concatenate(ar, axis=1))
-            result += [('SAEHD masked src-src', np.concatenate(st_m, axis=0)), ]
-
-            st_m = []
-            for i in range(n_samples):
-                ar = D[i] * target_dstm[i], DD[i] * DDM[i]
-                st_m.append(np.concatenate(ar, axis=1))
-            result += [('SAEHD masked dst-dst', np.concatenate(st_m, axis=0)), ]
-
-            st_m = []
-            for i in range(n_samples):
-                SD_mask = DDM[i] * SDM[i] if self.face_type < FaceType.HEAD else SDM[i]
-                ar = D[i] * target_dstm[i], SD[i] * SD_mask
-                st_m.append(np.concatenate(ar, axis=1))
-            result += [('SAEHD masked pred', np.concatenate(st_m, axis=0)), ]
+        result += [('SAEHD masked', np.concatenate(st_m, axis=0)), ]
 
         return result
 
