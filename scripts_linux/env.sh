@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
 
-conda activate deepfacelab
-
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 export DFL_ROOT="$(realpath "$SCRIPT_DIR/../..")"
 export DFL_SRC="$DFL_ROOT/DeepFaceLab"
 export DFL_WORKSPACE="$DFL_ROOT/workspace"
 export DFL_PYTHON="python3"
+
+#conda activate deepfacelab
+#source $DFL_ROOT/venv/bin/activate
 
 if [ ! -d "$DFL_WORKSPACE" ]; then
     mkdir -p "$DFL_WORKSPACE"
