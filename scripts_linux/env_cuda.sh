@@ -13,6 +13,6 @@ export CUDNN_HOME_11=/DATA/sdk/cudnn/cudnn-8.9.7.29_cuda11
 export LD_CU_10=$CUDA_HOME_10/lib64:$CUDNN_HOME_10/lib64
 export LD_CU_11=$CUDA_HOME_11/lib64:$CUDNN_HOME_11/lib
 
-export LD_LIBRARY_PATH=$LD_CU_10:$LD_CU_11:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_CU_10:$LD_CU_11
 
 python $SCRIPT_DIR/test_gpu.py
