@@ -1,8 +1,2 @@
-*
-!*.py
-!*.md
-!*.txt
-!*.jpg
-!requirements*
-!Dockerfile*
-!*.sh
+__pycache__
+workspace

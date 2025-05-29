@@ -3,8 +3,8 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-export DFL_ROOT="$(realpath "$SCRIPT_DIR/../..")"
-export DFL_SRC="$DFL_ROOT/DeepFaceLab"
+export DFL_ROOT="$(realpath "$SCRIPT_DIR/..")"
+export DFL_SRC="$DFL_ROOT/src"
 export DFL_WORKSPACE="$DFL_ROOT/workspace"
 export DFL_PYTHON="python3"
 
