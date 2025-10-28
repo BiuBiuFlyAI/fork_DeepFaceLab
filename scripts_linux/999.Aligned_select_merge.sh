@@ -6,4 +6,4 @@ source $SCRIPT_DIR/env.sh
 
 export PYTHONPATH=$DFL_SRC:$PYTHONPATH
 
-$DFL_PYTHON "$DFL_SRC/facesets/facesets.py"
+$DFL_PYTHON "$DFL_SRC/third_party/facesets/facesets.py"
