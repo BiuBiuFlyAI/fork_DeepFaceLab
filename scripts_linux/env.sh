@@ -3,6 +3,10 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
+if [ -n "${USE_PARENT_DIR}" ]; then
+  SCRIPT_DIR="$PARENT_DIR"
+fi
+
 ########################################################################################################################
 
 export DFL_ROOT="$(realpath "$SCRIPT_DIR/..")"
