@@ -1,7 +1,6 @@
 #!/bin/env python
 
 
-
 import json
 
 from tensorflow.python.client import device_lib
