@@ -14,8 +14,6 @@ export DFL_SRC="$DFL_ROOT/src"
 export DFL_WORKSPACE="$DFL_ROOT/workspace"
 export DFL_PYTHON="python3"
 
-source $DFL_ROOT/venv/bin/activate
-
 export PYTHONPATH=$DFL_SRC
 
 ########################################################################################################################
