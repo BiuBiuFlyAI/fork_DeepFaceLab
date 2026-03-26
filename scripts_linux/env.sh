@@ -3,8 +3,8 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-if [ -n "${USE_PARENT_DIR}" ]; then
-  SCRIPT_DIR="$PARENT_DIR"
+if [ -n "${USE_ROOT_SCRIPT_DIR}" ]; then
+  SCRIPT_DIR="$ROOT_SCRIPT_DIR"
 fi
 
 ########################################################################################################################
@@ -15,6 +15,8 @@ export DFL_WORKSPACE="$DFL_ROOT/workspace"
 export DFL_PYTHON="python3"
 
 source $DFL_ROOT/venv/bin/activate
+
+export PYTHONPATH=$DFL_SRC
 
 ########################################################################################################################
 
