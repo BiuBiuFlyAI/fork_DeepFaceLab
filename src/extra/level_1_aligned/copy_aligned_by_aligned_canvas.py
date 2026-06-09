@@ -26,12 +26,11 @@ def process(
         dst_dir: pathlib.Path,
         aligned_canvas_path: pathlib.Path,
 ):
-    aligned_files = extra.base.file.get_files(aligned_dir, recursion=False, ext=[".jpg"])
+    aligned_path = aligned_dir / aligned_canvas_path.name
 
-    for aligned in aligned_files:
-        if aligned.name == aligned_canvas_path.name:
-            dst_path = dst_dir / aligned.name
-            extra.base.file.copy_file(aligned, dst_path)
+    if aligned_path.exists() and aligned_path.is_file():
+        dst_path = dst_dir / aligned_path.name
+        extra.base.file.copy_file(aligned_path, dst_path)
 
     return 1
 
