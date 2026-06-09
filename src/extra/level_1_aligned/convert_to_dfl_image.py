@@ -25,10 +25,12 @@ def check_is_dfl_image(
 ):
     try:
         dfl_image = DFLIMG.DFLJPG.load(str(image_path))
-        return True
+        if dfl_image is None:
+            return False
+        else:
+            return True
     except Exception as e:
-        pass
-    return False
+        return False
 
 
 def process(

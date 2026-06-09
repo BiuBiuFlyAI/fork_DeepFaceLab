@@ -40,6 +40,9 @@ def process(
         except Exception as e:
             return
 
+        if image is None:
+            return
+
     mask = PIL.Image.open(mask_path)
     mask = mask.convert("L")
     mask = mask.resize(
